@@ -44,6 +44,7 @@ export default function HomePage() {
       if (query && data.results?.length > 0) {
         await updateSearchCount(data.results[0], query);
       }
+      
     } catch (error) {
       console.error(error);
       setErrorMessage("Error fetching movies. Please try again later.");
