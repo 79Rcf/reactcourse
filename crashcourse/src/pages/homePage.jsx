@@ -4,6 +4,7 @@ import MovieCards from "../components/MovieCards";
 import { useDebounce } from "../hooks/useDebounce";
 import { getTrendingMovies, updateSearchCount } from "../appWrite";
 import { Link } from "react-router";
+import Spinner from "../components/Spinner";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDP_API_KEY;
@@ -84,35 +85,42 @@ export default function HomePage() {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
-        {trendingMovies.length > 0 && (
-          <section className="trending">
-            <h2>Trending Movies</h2>
-            <ul>
-              {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
-                  <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        {trendingMovies?.length > 0 && (
+  <section className="trending">
+    <h2>Trending Movies</h2>
+    <ul>
+      {trendingMovies.map((movie, index) => (
+        <li key={movie.$id || index}>
+          <p>{index + 1}</p>
+          <img src={movie.poster_url} alt={movie.title} />
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
 
-        <section className="all-movies">
-          <h2>All Movies</h2>
+       
 
-          {isLoading ? (
-            <p className="text-white">Loading...</p>
-          ) : errorMessage ? (
-            <p className="text-red-500">{errorMessage}</p>
-          ) : (
-            <ul>
-              {movieList.map((movie) => (
-                <Link to={`/movie/${movie.id}`} key={movie.id}><MovieCards key={movie.id} movie={movie} /></Link>
-              ))}
-            </ul>
-          )}
-        </section>
+<section className="all-movies">
+  <h2>All Movies</h2>
+
+  {isLoading ? (
+    <div className="flex justify-center items-center py-10">
+      <Spinner />
+    </div>
+  ) : errorMessage ? (
+    <p className="text-red-500">{errorMessage}</p>
+  ) : (
+    <ul>
+      {movieList.map((movie) => (
+        <Link to={`/movie/${movie.id}`} key={movie.id}>
+          <MovieCards key={movie.id} movie={movie} />
+        </Link>
+      ))}
+    </ul>
+  )}
+</section>
+
       </div>
     </main>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -49,9 +50,9 @@ const MovieDetails = () => {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center min-h-screen text-white">
-        Loading movie...
-      </div>
+      <div className="flex justify-center items-center py-10">
+      <Spinner />
+    </div>
     );
 
   if (!movieData) return null;
@@ -109,8 +110,7 @@ const MovieDetails = () => {
               </ul>
             </div>
           </div>
-
-       
+     
           <div className="mb-12">
             <h2 className="text-3xl font-semibold mb-4">Genres</h2>
             <div className="flex flex-wrap gap-3">
