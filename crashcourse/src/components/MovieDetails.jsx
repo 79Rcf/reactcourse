@@ -110,8 +110,7 @@ const MovieDetails = () => {
               </ul>
             </div>
           </div>
-
-       
+     
           <div className="mb-12">
             <h2 className="text-3xl font-semibold mb-4">Genres</h2>
             <div className="flex flex-wrap gap-3">
