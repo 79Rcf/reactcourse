@@ -31,11 +31,11 @@ export default function HomePage() {
     setErrorMessage("");
 
     try {
-      const endpoint = query
+      const getMovies = query
         ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
-      const response = await fetch(endpoint, API_OPTIONS);
+      const response = await fetch(getMovies, API_OPTIONS);
 
       if (!response.ok) throw new Error("TMDB error: " + response.status);
 
