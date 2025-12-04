@@ -6,7 +6,7 @@ import { getTrendingMovies, updateSearchCount } from "../appWrite";
 import { Link } from "react-router";
 import Spinner from "../components/Spinner";
 
-const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDP_API_KEY;
 
 const API_OPTIONS = {
