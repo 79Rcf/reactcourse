@@ -90,7 +90,7 @@ export default function HomePage() {
     <h2>Trending Movies</h2>
     <ul>
       {trendingMovies.map((movie, index) => (
-        <li key={movie.$id || index}>
+         <li key={movie.$id ? movie.$id : `movie-${index}-${Math.random().toString(36).substr(2, 9)}`}>
           <p>{index + 1}</p>
           <img src={movie.poster_url} alt={movie.title} />
         </li>
