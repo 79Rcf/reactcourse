@@ -6,7 +6,7 @@ import { getTrendingMovies, updateSearchCount } from "../appWrite";
 import { Link } from "react-router";
 import Spinner from "../components/Spinner";
 
-const API_BASE_URL = "https://api.themoviedb.org/3";
+const API_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const API_KEY = import.meta.env.VITE_TMDP_API_KEY;
 
 const API_OPTIONS = {
@@ -31,11 +31,11 @@ export default function HomePage() {
     setErrorMessage("");
 
     try {
-      const endpoint = query
+      const getMovies = query
         ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
         : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
-      const response = await fetch(endpoint, API_OPTIONS);
+      const response = await fetch(getMovies, API_OPTIONS);
 
       if (!response.ok) throw new Error("TMDB error: " + response.status);
 
@@ -90,7 +90,7 @@ export default function HomePage() {
     <h2>Trending Movies</h2>
     <ul>
       {trendingMovies.map((movie, index) => (
-        <li key={movie.$id || index}>
+         <li key={movie.$id ? movie.$id : `movie-${index}-${Math.random().toString(36).substr(2, 9)}`}>
           <p>{index + 1}</p>
           <img src={movie.poster_url} alt={movie.title} />
         </li>

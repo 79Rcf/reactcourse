@@ -3,8 +3,11 @@ import React from 'react';
 function MovieCards({ movie: {title, poster_path, release_date, original_language, vote_average }}) {
     return (
         <div className='movie-card'>
-          <img src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : '/no-movie.png'} alt={title}/> 
-
+         <img 
+  src={poster_path 
+    ? `${import.meta.env.VITE_TMDB_IMAGE_URL}${poster_path}` 
+    : '/no-movie.png'
+  } alt={title} />
           <div className='mt-4'>
                  <h3>{title}</h3>
           </div>
@@ -18,10 +21,11 @@ function MovieCards({ movie: {title, poster_path, release_date, original_languag
             <p className='lang'>{original_language}</p>
 
             <span>●</span>
-            <p className='year'>{release_date ? release_date.split(/['']/)[0]: 'N/A'}</p>
+            <p className='year'>{release_date ? release_date.split(/['-']/)[0]: 'N/A'}</p>
           </div>
         </div>
     );
 }
+
 
 export default MovieCards;
